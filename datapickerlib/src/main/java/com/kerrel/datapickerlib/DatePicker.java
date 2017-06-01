@@ -53,6 +53,8 @@ public class DatePicker extends AppCompatDialogFragment {
 
         mDatePicker.init(mBuilder.year, mBuilder.month, mBuilder.day, onDateChangedListener);
 
+        if (mBuilder.minDate != -1) mDatePicker.setMinDate(mBuilder.minDate);
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
@@ -75,6 +77,7 @@ public class DatePicker extends AppCompatDialogFragment {
         int year;
         int month;
         int day;
+        long minDate;
 
         public Builder(Context context) {
             this.mContext = context;
@@ -97,6 +100,11 @@ public class DatePicker extends AppCompatDialogFragment {
 
         public Builder setDay(int day) {
             this.day = day;
+            return this;
+        }
+
+        public Builder setMinDate(long minDate) {
+            this.minDate = minDate;
             return this;
         }
 

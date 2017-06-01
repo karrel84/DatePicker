@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             DatePicker datePicker = new DatePicker.Builder(MainActivity.this)
                     .setDate(Calendar.getInstance())
+                    .setMinDate(Calendar.getInstance().getTimeInMillis())
                     .create();
             datePicker.show(getSupportFragmentManager(), onDatePickListener2);
         }
