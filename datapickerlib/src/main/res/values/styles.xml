@@ -1,0 +1,10 @@
+<resources>
+
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">#676767</item>
+    </style>
+
+</resources>
