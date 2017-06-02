@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<DatePicker xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/datePicker"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:theme="@style/DatePickerTheme" />
+    android:layout_height="wrap_content">
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:theme="@style/DatePickerTheme" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ok"
+        app:layout_constraintLeft_toLeftOf="@+id/datePicker"
+        app:layout_constraintRight_toRightOf="@+id/datePicker"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:text="확인"
+        android:textColor="@android:color/black"
+        app:layout_constraintRight_toRightOf="@+id/datePicker"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:text="취소"
+        android:textColor="@android:color/black"
+        app:layout_constraintRight_toLeftOf="@+id/ok"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+</android.support.constraint.ConstraintLayout>

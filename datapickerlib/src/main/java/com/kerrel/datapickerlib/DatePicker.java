@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -27,6 +28,9 @@ public class DatePicker extends AppCompatDialogFragment {
     private OnDatePickListener mOnDatePickListener;
 
     private android.widget.DatePicker mDatePicker;
+    private View mRoot;
+
+    private Calendar mCalendar = Calendar.getInstance();
 
     public DatePicker(Builder builder) {
         mBuilder = builder;
@@ -44,16 +48,57 @@ public class DatePicker extends AppCompatDialogFragment {
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
 
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setupDialog(dialog);
+        setutLayout(dialog);
+        setupDatePicker();
+        setupButtonEvents();
+    }
 
-        mDatePicker = (android.widget.DatePicker) LayoutInflater.from(mBuilder.mContext).inflate(R.layout.date_picker, null, false);
+    /**
+     * 확인, 취소 버튼 세팅
+     */
+    private void setupButtonEvents() {
+        mRoot.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnDatePickListener.onDatePick(mCalendar);
+                dismiss();
+            }
+        });
+        mRoot.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
 
-        dialog.setContentView(mDatePicker);
 
+    /**
+     * 데이트피커 세팅
+     */
+    private void setupDatePicker() {
+        mDatePicker = (android.widget.DatePicker) mRoot.findViewById(R.id.datePicker);
         mDatePicker.setMinDate(mBuilder.minDate);
         mDatePicker.init(mBuilder.year, mBuilder.month, mBuilder.day, onDateChangedListener);
+    }
 
+    /**
+     * 레이아웃 세팅
+     */
+    private void setutLayout(Dialog dialog) {
+        mRoot = LayoutInflater.from(mBuilder.mContext).inflate(R.layout.date_picker, null, false);
+        dialog.setContentView(mRoot);
+    }
+
+    /**
+     * 다이얼로그 세팅
+     *
+     * @param dialog
+     */
+    private void setupDialog(Dialog dialog) {
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
@@ -61,13 +106,9 @@ public class DatePicker extends AppCompatDialogFragment {
         @Override
         public void onDateChanged(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, monthOfYear);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-            mOnDatePickListener.onDatePick(calendar);
-            dismiss();
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         }
     };
 
