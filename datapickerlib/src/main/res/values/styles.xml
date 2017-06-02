@@ -2,9 +2,8 @@
 
 
     <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorAccent">#676767</item>
+
+        <item name="colorAccent">#a72128</item>
     </style>
 
 </resources>

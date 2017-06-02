@@ -47,7 +47,7 @@ public class DatePicker extends AppCompatDialogFragment {
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mDatePicker = (android.widget.DatePicker) LayoutInflater.from(mBuilder.mContext).inflate(R.layout.activity_date_picker, null, false);
+        mDatePicker = (android.widget.DatePicker) LayoutInflater.from(mBuilder.mContext).inflate(R.layout.date_picker, null, false);
 
         dialog.setContentView(mDatePicker);
 
