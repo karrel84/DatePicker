@@ -71,6 +71,12 @@ public class TimePicker extends AppCompatDialogFragment {
      * 타임피커 세팅
      */
     private void setupTimePicker() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTimePicker.setMinute(mBuilder.minute);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTimePicker.setHour(mBuilder.hour);
+        }
         mTimePicker.setOnTimeChangedListener(new android.widget.TimePicker.OnTimeChangedListener() {
 
             @Override
@@ -136,9 +142,17 @@ public class TimePicker extends AppCompatDialogFragment {
      */
     public static class Builder {
         public Context mContext;
+        public int hour = -1;
+        public int minute = -1;
 
         public Builder(Context context) {
             this.mContext = context;
+        }
+
+        public Builder setTime(int hour, int minute) {
+            this.hour = hour;
+            this.minute = minute;
+            return this;
         }
 
         public TimePicker create() {
