@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 
 public class TimePicker extends AppCompatDialogFragment {
 
+    private final String TAG = "TimePicker";
 
     public interface OnTimePickListener {
         void onTimePick(int hourOfDay, int minute);
@@ -81,6 +83,7 @@ public class TimePicker extends AppCompatDialogFragment {
 
             @Override
             public void onTimeChanged(android.widget.TimePicker view, int hourOfDay, int minute) {
+                Log.d(TAG, String.format("hourOfDay : %s , minute : %s", hourOfDay, minute));
                 TimePicker.this.hourOfDay = hourOfDay;
                 TimePicker.this.minute = minute;
             }
@@ -120,7 +123,7 @@ public class TimePicker extends AppCompatDialogFragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 hourOfDay = mTimePicker.getHour();
             } else {
-                hourOfDay = 0;
+                hourOfDay = mTimePicker.getCurrentHour();
             }
         }
         return hourOfDay;
@@ -131,7 +134,7 @@ public class TimePicker extends AppCompatDialogFragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 minute = mTimePicker.getMinute();
             } else {
-                minute = 0;
+                minute = mTimePicker.getCurrentMinute();
             }
         }
         return minute;
