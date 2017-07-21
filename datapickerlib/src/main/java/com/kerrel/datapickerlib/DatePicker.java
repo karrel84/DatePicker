@@ -30,8 +30,6 @@ public class DatePicker extends AppCompatDialogFragment {
     private android.widget.DatePicker mDatePicker;
     private View mRoot;
 
-    private Calendar mCalendar = Calendar.getInstance();
-
     public DatePicker(Builder builder) {
         mBuilder = builder;
     }
@@ -61,7 +59,11 @@ public class DatePicker extends AppCompatDialogFragment {
         mRoot.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnDatePickListener.onDatePick(mCalendar);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, mDatePicker.getYear());
+                calendar.set(Calendar.MONTH, mDatePicker.getMonth());
+                calendar.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
+                mOnDatePickListener.onDatePick(calendar);
                 dismiss();
             }
         });
@@ -80,7 +82,6 @@ public class DatePicker extends AppCompatDialogFragment {
     private void setupDatePicker() {
         mDatePicker = (android.widget.DatePicker) mRoot.findViewById(R.id.datePicker);
         mDatePicker.setMinDate(mBuilder.minDate);
-        mDatePicker.init(mBuilder.year, mBuilder.month, mBuilder.day, onDateChangedListener);
     }
 
     /**
@@ -101,16 +102,6 @@ public class DatePicker extends AppCompatDialogFragment {
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
-
-    private android.widget.DatePicker.OnDateChangedListener onDateChangedListener = new android.widget.DatePicker.OnDateChangedListener() {
-        @Override
-        public void onDateChanged(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-            mCalendar.set(Calendar.YEAR, year);
-            mCalendar.set(Calendar.MONTH, monthOfYear);
-            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        }
-    };
 
     public static class Builder {
         public Context mContext;

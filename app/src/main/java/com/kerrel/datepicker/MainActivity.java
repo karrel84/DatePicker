@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.kerrel.datapickerlib.DatePicker;
 import com.kerrel.datapickerlib.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onDatePick(Calendar calendar) {
             TextView date = (TextView) findViewById(R.id.date);
-            date.setText(calendar.toString());
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            date.setText(format.format(calendar.getTime()));
         }
     };
 
